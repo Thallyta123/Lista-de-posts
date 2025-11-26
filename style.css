@@ -51,5 +51,20 @@ h1 {
 }
 
 button {
-    padding: 8px;
+    padding: 8px 15px;
+    border: none;
+    background-color: #ff7b00;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover:not(:disabled){
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#pagina-info {
+    font-weight: bold;
 }
