@@ -12,29 +12,46 @@ const paginainfo = document.getElementById("pagina-info");
 let paginaAtual = 1;
 const postPorPagina = 6;
 
-function renderizarPosts(){
+function renderizarPosts() {
     container.innerHTML = "";
 
-    const inicio = (paginaAtual - 1)*postPorPagina;
+    const inicio = (paginaAtual - 1) * postPorPagina;
     const fim = inicio + posts.postPorPagina;
     const paginaPosts = posts.slice(inicio, fim);
 
-paginaPosts.forEach(post => {
-    const div = document.createElement("div");
-    div.classList.add("post");
-    divinnerHTML = `
+    paginaPosts.forEach(post => {
+        const div = document.createElement("div");
+        div.classList.add("post");
+        divinnerHTML = `
     <h3>${post.titulo}</h3>
     <p>${post.conteudo}</p>
     `;
-    container.appendChild(div);
-});
+        container.appendChild(div);
+    });
 
-atualizarControles();
+    atualizarControles();
 
 }
 
 function atualizarControles() {
-    paginainfo.textContent = `Página ${paginaAtual} de ${Math.ceil(posts.length/
+    paginainfo.textContent = `Página ${paginaAtual} de ${Math.ceil(posts.length /
         postsPorPagina)}`
-
+    btnAnterior.disabled = paginaAtual === 1;
+    btnProxmimo.disabled = paginaAtual === Math.ceil(posts.length / postsPorPagina);
 }
+
+btnProxmimo.addEventListener("click", () => {
+    if (paginaAtual < Math.ceil(posts.length / postPorPagina)) {
+        paginaAtual++;
+        renderizarPosts();
+    }
+});
+
+tbnAnterior.addEventListener("click", () => {
+    if (paginaAtual > 1) {
+        paginaAtual--;
+        renderizarPosts();
+    }
+});
+
+renderizarPosts();
